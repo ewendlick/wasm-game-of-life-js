@@ -70,6 +70,7 @@ const drawCells = () => {
 // The Javascript runs in a requestAniamtionFrame loop.
 // On each iteration, it draws the current universe to the <canvas>., and then calls Universe::tick
 const renderLoop = () => {
+  // debugger;
   universe.tick()
   drawGrid()
   drawCells()

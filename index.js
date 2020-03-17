@@ -123,22 +123,31 @@ generateRandomButton.addEventListener('click', event => {
 
 
 canvas.addEventListener('click', event => {
-  const boundingRect = canvas.getBoundingClientRect();
+  const boundingRect = canvas.getBoundingClientRect()
 
-  const scaleX = canvas.width / boundingRect.width;
-  const scaleY = canvas.height / boundingRect.height;
+  const scaleX = canvas.width / boundingRect.width
+  const scaleY = canvas.height / boundingRect.height
 
-  const canvasLeft = (event.clientX - boundingRect.left) * scaleX;
-  const canvasTop = (event.clientY - boundingRect.top) * scaleY;
+  const canvasLeft = (event.clientX - boundingRect.left) * scaleX
+  const canvasTop = (event.clientY - boundingRect.top) * scaleY
 
-  const row = Math.min(Math.floor(canvasTop / (CELL_SIZE + 1)), height - 1);
-  const col = Math.min(Math.floor(canvasLeft / (CELL_SIZE + 1)), width - 1);
+  const row = Math.min(Math.floor(canvasTop / (CELL_SIZE + 1)), height - 1)
+  const col = Math.min(Math.floor(canvasLeft / (CELL_SIZE + 1)), width - 1)
 
-  universe.toggle_cell(row, col);
+  // Create glider
+  if (event.metaKey) {
+    // TODO: test metaKey on Windows/Linux machine
+    universe.insert_glider(row, col)
+  // create pulsar
+  } else if (event.shiftKey) {
+    universe.insert_pulsar(row, col)
+  } else {
+    universe.toggle_cell(row, col)
+  }
 
-  drawGrid();
-  drawCells();
-});
+  drawGrid()
+  drawCells()
+})
 
 // Starts the Game of Life
 drawGrid()

@@ -69,16 +69,42 @@ const drawCells = () => {
 
 // The Javascript runs in a requestAniamtionFrame loop.
 // On each iteration, it draws the current universe to the <canvas>., and then calls Universe::tick
+let animationId = null
 const renderLoop = () => {
   // debugger;
   universe.tick()
   drawGrid()
   drawCells()
 
-  requestAnimationFrame(renderLoop)
+  animationId = requestAnimationFrame(renderLoop)
 }
+
+const isPaused = () => {
+  return animationId === null
+}
+
+const playPauseButton = document.getElementById('play-pause')
+
+const play = () => {
+  playPauseButton.textContent = '||'
+  renderLoop()
+}
+
+const pause = () => {
+  playPauseButton.textContent = '▶'
+  cancelAnimationFrame(animationId)
+  animationId = null
+}
+
+playPauseButton.addEventListener('click', event => {
+  if (isPaused()) {
+    play()
+  } else {
+    pause()
+  }
+})
 
 drawGrid()
 drawCells()
 
-requestAnimationFrame(renderLoop)
+play()

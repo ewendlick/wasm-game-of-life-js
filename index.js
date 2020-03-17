@@ -104,6 +104,24 @@ playPauseButton.addEventListener('click', event => {
   }
 })
 
+const clearAllButton = document.getElementById('clear-all')
+
+clearAllButton.addEventListener('click', event => {
+  universe.clear_all()
+  universe.tick()
+  drawGrid()
+  drawCells()
+})
+
+const generateRandomButton = document.getElementById('generate-random')
+generateRandomButton.addEventListener('click', event => {
+  universe.generate_random()
+  universe.tick()
+  drawGrid()
+  drawCells()
+})
+
+
 canvas.addEventListener('click', event => {
   const boundingRect = canvas.getBoundingClientRect();
 
